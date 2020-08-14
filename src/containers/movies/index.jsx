@@ -59,8 +59,7 @@ const MoviesContainer = () => {
     load("sorted");
   };
 
-  const remove = (e, id) => {
-    e.preventDefault();
+  const remove = (id) => {
     setLoading(1);
 
     return axios
@@ -73,7 +72,7 @@ const MoviesContainer = () => {
       .catch((err) => {
         setLoading(0);
         console.log(err);
-        alert(e.message);
+        alert(err.message);
       });
   };
 

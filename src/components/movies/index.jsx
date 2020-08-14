@@ -1,19 +1,57 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { MovieCard } from "components/core/movie-card";
+import { Popup } from "components/core/popup";
 import { Link } from "react-router-dom";
 import s from "./styles.module.scss";
 
 const MoviesPage = ({ data, onSearch, onSort, onDelete }) => {
   const [value, setValue] = useState("");
+  const [popup, setPopup] = useState(false);
+  const [movie, setMovie] = useState(null);
 
   const handleChange = (e) => {
     setValue(e.target.value);
     onSearch(e.target.value);
   };
 
+  const togglePopup = (e, el) => {
+    e.preventDefault();
+    setMovie(el);
+    setPopup((prev) => !prev);
+  };
+
+  const handleDelete = (id) => {
+    onDelete(id);
+    setPopup((prev) => !prev);
+  };
+
   return (
     <div className={s.page}>
+      <Popup visible={popup}>
+        <div className={s.pagePopup}>
+          <p className={s.pagePopupTitle}>
+            Are you sure you want to remove `{movie && movie.title}` ?
+          </p>
+          <div className={s.pagePopupFooter}>
+            <button
+              type="button"
+              onClick={togglePopup}
+              className={s.pagePopupCancelBtn}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDelete(movie._id)}
+              className={s.pagePopupRemoveBtn}
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      </Popup>
+
       <div className={s.pageInputWrapper}>
         <input
           type="text"
@@ -32,11 +70,19 @@ const MoviesPage = ({ data, onSearch, onSort, onDelete }) => {
         </button>
       </div>
 
-      {data.map((el) => (
-        <Link key={el._id} to={`movies/${el._id}`}>
-          <MovieCard className={s.pageCard} card={el} onDelete={onDelete} />
-        </Link>
-      ))}
+      {data.length ? (
+        data.map((el) => (
+          <Link key={el._id} to={`movies/${el._id}`}>
+            <MovieCard
+              className={s.pageCard}
+              card={el}
+              onToggle={(e) => togglePopup(e, el)}
+            />
+          </Link>
+        ))
+      ) : (
+        <p className={s.pageNotFound}> Sorry, nothing was found!</p>
+      )}
     </div>
   );
 };

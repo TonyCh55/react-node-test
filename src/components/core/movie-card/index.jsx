@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import s from "./styles.module.scss";
 
-export const MovieCard = ({ card, className, onDelete }) => {
+export const MovieCard = ({ card, className, onToggle }) => {
   return (
     <div className={cx(s.card, className)}>
       <img
@@ -21,13 +21,11 @@ export const MovieCard = ({ card, className, onDelete }) => {
         <p className={s.cardContentItem}>
           <span>Format</span> {card.format}
         </p>
-        <p className={s.cardContentItem}>{card.stars}</p>
+        <p className={s.cardContentItem}>
+          {card.stars.length && card.stars.join(",")}
+        </p>
 
-        <button
-          onClick={(e) => onDelete(e, card._id)}
-          type="button"
-          className={s.cardRemoveBtn}
-        >
+        <button onClick={onToggle} type="button" className={s.cardRemoveBtn}>
           Remove
         </button>
       </div>
@@ -44,7 +42,7 @@ MovieCard.propTypes = {
     stars: PropTypes.string.isRequired,
   }).isRequired,
   className: PropTypes.string,
-  onDelete: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
 };
 
 MovieCard.defaultProps = {

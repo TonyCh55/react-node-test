@@ -11,7 +11,9 @@
     max-width: 400px;
 
     &Input {
+      background: #fff;
       border: 1px solid transparent;
+      color: #5f787b;
       margin-bottom: 20px;
       outline: none;
       padding: 10px;
@@ -19,6 +21,45 @@
 
       &:focus {
         border: 1px solid #eab354;
+      }
+    }
+
+    &AddStar {
+      margin-bottom: 30px;
+      text-align: left;
+      width: 100%;
+
+      button {
+        background: #5f787b;
+        border: 1px solid transparent;
+        border-color: transparent;
+        color: #fff;
+        cursor: pointer;
+        justify-self: end;
+        outline: none;
+        padding: 12px 34px;
+
+        &:hover {
+          background: #eab354;
+        }
+      }
+    }
+
+    &InputArrayContainer {
+      display: flex;
+      position: relative;
+      width: 100%;
+
+      button {
+        background: red;
+        color: #fff;
+        cursor: pointer;
+        margin-left: 12px;
+        width: 70px;
+
+        &:hover {
+          background: #eab354;
+        }
       }
     }
 

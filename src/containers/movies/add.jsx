@@ -8,7 +8,7 @@ const AddMovieContainer = ({ history }) => {
   const handleSubmit = (e, movie) => {
     e.preventDefault();
 
-    if (movie && movie.title && movie.year && movie.format && movie.stars) {
+    if (movie && movie.title && movie.year && movie.format) {
       axios
         .post(`${baseUrl}/api/movies`, movie)
         .then((res) => {

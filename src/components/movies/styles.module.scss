@@ -4,6 +4,54 @@
   justify-content: space-between;
   margin-right: -20px;
 
+  button:focus {
+    outline: none;
+  }
+
+  button:hover {
+    background-color: #eab354;
+  }
+
+  &Popup {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    &Title {
+      color: #5f787b;
+      font-weight: bold;
+      margin-bottom: 50px;
+      margin-top: 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    &Footer {
+      text-align: right;
+      width: 100%;
+    }
+
+    &RemoveBtn {
+      background: red;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      margin-left: 14px;
+      padding: 12px;
+      text-transform: uppercase;
+    }
+
+    &CancelBtn {
+      background: #5f787b;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      margin-left: 14px;
+      padding: 12px;
+      text-transform: uppercase;
+    }
+  }
+
   &InputWrapper {
     width: 100%;
   }
@@ -28,14 +76,6 @@
     margin-left: 20px;
     padding: 10px;
     text-transform: uppercase;
-
-    &:hover {
-      background-color: #eab354;
-    }
-
-    &:focus {
-      outline: none;
-    }
   }
 
   a {
@@ -45,5 +85,11 @@
   &Card {
     margin-bottom: 30px;
     margin-right: 20px;
+  }
+
+  &NotFound {
+    color: #5f787b;
+    text-align: center;
+    width: 100%;
   }
 }
