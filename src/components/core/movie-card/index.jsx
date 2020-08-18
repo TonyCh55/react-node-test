@@ -21,9 +21,7 @@ export const MovieCard = ({ card, className, onToggle }) => {
         <p className={s.cardContentItem}>
           <span>Format</span> {card.format}
         </p>
-        <p className={s.cardContentItem}>
-          {card.stars.length && card.stars.join(",")}
-        </p>
+        <p className={s.cardContentItem}>{card.stars}</p>
 
         <button onClick={onToggle} type="button" className={s.cardRemoveBtn}>
           Remove

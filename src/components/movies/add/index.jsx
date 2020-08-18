@@ -6,24 +6,12 @@ import s from "./styles.module.scss";
 const AddMovie = ({ handleSubmit }) => {
   const date = new Date();
   const [movie, setValue] = useState({});
-  const [stars, setStars] = useState([]);
+  const [stars, setStars] = useState([{ star: "", id: Date.now() }]);
   const [actors, setActors] = useState({});
-
-  console.log(actors, stars, movie);
 
   useEffect(
     () =>
       setValue((prev) => {
-        const arr = [];
-
-        // console.log(arr);
-
-        // for (const star in actors) {
-        //   arr.push({ star: actors[star] });
-        // }
-
-        const myStars = Object.values(actors);
-
         return { ...prev, stars: Object.values(actors) };
       }),
     [actors]
@@ -52,18 +40,13 @@ const AddMovie = ({ handleSubmit }) => {
 
     return setActors((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value.trim(),
+      // [name]: value.toLowerCase().trim(),
     }));
   };
 
   const addStar = () => {
     setStars([...stars, { star: "", id: Date.now() }]);
-    // setActors()
-  };
-
-  const removeStar = (id) => {
-    const filtered = stars.filter((el) => el.id !== id);
-    setStars(filtered);
   };
 
   return (
@@ -109,15 +92,6 @@ const AddMovie = ({ handleSubmit }) => {
           ))}
         </select>
 
-        {/*  <input
-          required
-          className={s.pageFormInput}
-          type="text"
-          name="stars"
-          onChange={handleChange}
-          placeholder="Movie stars"
-        /> */}
-
         <div className={s.pageFormAddStar}>
           <button onClick={addStar} type="button">
             add star
@@ -125,26 +99,15 @@ const AddMovie = ({ handleSubmit }) => {
         </div>
 
         {stars.map((el, idx) => (
-          <div key={el.id} className={s.pageFormInputArrayContainer}>
-            <input
-              required
-              onKeyPress="return /[a-z]/i.test(event.key)"
-              className={s.pageFormInput}
-              type="text"
-              name={`star${idx}`}
-              onChange={(e) => handleActorsChange(e)}
-              placeholder="Movie star"
-            />
-            {idx > 0 && (
-              <button
-                onClick={() => removeStar(el.id)}
-                type="button"
-                className={s.pageFormInput}
-              >
-                remove
-              </button>
-            )}
-          </div>
+          <input
+            key={el.id}
+            required
+            className={s.pageFormInput}
+            type="text"
+            name={`star${idx}`}
+            onChange={(e) => handleActorsChange(e)}
+            placeholder="Movie star"
+          />
         ))}
 
         <button className={s.pageFormSubmit} type="submit">

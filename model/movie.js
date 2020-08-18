@@ -16,7 +16,7 @@ const movie = new Schema({
     required: true,
   },
   stars: {
-    type: Array,
+    type: String,
     required: true,
   },
 });

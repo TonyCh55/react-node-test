@@ -92,4 +92,14 @@
     text-align: center;
     width: 100%;
   }
+
+  &Pagination {
+    text-align: center;
+    width: 100%;
+
+    button {
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  }
 }

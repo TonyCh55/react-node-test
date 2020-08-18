@@ -15,7 +15,9 @@
     "react/jsx-props-no-spreading": 0,
     "no-underscore-dangle": 0,
     "no-alert": 0,
-    "react/destructuring-assignment": 0
+    "react/destructuring-assignment": 0,
+    "no-plusplus": 0,
+    "react-hooks/exhaustive-deps": 0
   },
   "settings": {
     "import/resolver": {

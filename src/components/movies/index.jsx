@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import { MovieCard } from "components/core/movie-card";
 import { Popup } from "components/core/popup";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import s from "./styles.module.scss";
 
-const MoviesPage = ({ data, onSearch, onSort, onDelete }) => {
+const MoviesPage = ({
+  pages,
+  paginatedData,
+  data,
+  setPageNum,
+  onSearch,
+  onSort,
+  onDelete,
+}) => {
   const [value, setValue] = useState("");
   const [popup, setPopup] = useState(false);
   const [movie, setMovie] = useState(null);
@@ -70,8 +78,8 @@ const MoviesPage = ({ data, onSearch, onSort, onDelete }) => {
         </button>
       </div>
 
-      {data.length ? (
-        data.map((el) => (
+      {paginatedData ? (
+        paginatedData.map((el) => (
           <Link key={el._id} to={`movies/${el._id}`}>
             <MovieCard
               className={s.pageCard}
@@ -83,15 +91,31 @@ const MoviesPage = ({ data, onSearch, onSort, onDelete }) => {
       ) : (
         <p className={s.pageNotFound}> Sorry, nothing was found!</p>
       )}
+
+      <div className={s.pagePagination}>
+        {pages.map((el) => (
+          <button
+            onClick={(e) => setPageNum(e.target.id)}
+            key={el}
+            id={el}
+            type="button"
+          >
+            {el}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
 
 MoviesPage.propTypes = {
   data: PropTypes.arrayOf(MovieCard.propTypes.card).isRequired,
+  paginatedData: PropTypes.arrayOf(MovieCard.propTypes.card).isRequired,
   onSearch: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
+  setPageNum: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  pages: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default MoviesPage;
