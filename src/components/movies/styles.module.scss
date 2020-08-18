@@ -1,4 +1,5 @@
 .page {
+  align-items: stretch;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -96,6 +97,10 @@
   &Pagination {
     text-align: center;
     width: 100%;
+
+    &ItemActive {
+      background: #eab354;
+    }
 
     button {
       cursor: pointer;

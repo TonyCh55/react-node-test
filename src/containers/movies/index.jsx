@@ -29,9 +29,10 @@ const MoviesContainer = () => {
 
   const [paginatedData, setPaginatedData] = useState([]);
 
+  console.log(paginatedData);
+
   const paginate = (arr, page) => {
-    const sliced = arr.length && arr.slice(offset * (page - 1), offset * page);
-    setPaginatedData(sliced);
+    return arr.length && arr.slice(offset * (page - 1), offset * page);
   };
 
   const load = (type, page) => {
@@ -44,22 +45,27 @@ const MoviesContainer = () => {
 
           switch (type) {
             case "sorted":
-              paginate(
-                res.data.sort((a, b) => {
-                  return 1 * a.title.localeCompare(b.title);
-                }),
-                pageNum
+              setPaginatedData(
+                paginate(
+                  res.data.sort((a, b) => {
+                    return 1 * a.title.localeCompare(b.title);
+                  }),
+                  pageNum
+                )
               );
-              setDefaultMovies(res.data);
+              setDefaultMovies(paginate(res.data, page));
+
               break;
 
             case "paginated":
-              paginate(res.data.reverse(), page);
+              setPaginatedData(paginate(res.data.reverse(), page));
+              setDefaultMovies(paginate(res.data, page));
+
               break;
 
             default:
               setMovies(res.data.reverse());
-              setDefaultMovies(res.data);
+            // setDefaultMovies(res.data);
           }
         }
       })
@@ -78,10 +84,10 @@ const MoviesContainer = () => {
     );
 
     if (!str) {
-      return setMovies(defaultMovies);
+      return setPaginatedData(defaultMovies);
     }
 
-    return setMovies(filtered);
+    return setPaginatedData(filtered);
   };
 
   const sort = () => {
@@ -97,6 +103,7 @@ const MoviesContainer = () => {
       .then((res) => {
         if (res.status >= 200 && res.status < 300) {
           load();
+          load("paginated", pageNum);
         }
       })
       .catch((err) => {
@@ -114,6 +121,7 @@ const MoviesContainer = () => {
       data={movies}
       paginatedData={paginatedData}
       setPageNum={setPageNum}
+      pageNum={pageNum}
       onSearch={search}
       onSort={sort}
       onDelete={remove}
